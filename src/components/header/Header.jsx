@@ -23,11 +23,6 @@ export function Header({ currentUser, hidden }) {
             Shop
           </Link>
         </div>
-        <div className="option">
-          <Link to="/">
-            Contact
-          </Link>
-        </div>
         <div>
           {
             currentUser ?
