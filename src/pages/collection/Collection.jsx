@@ -8,6 +8,7 @@ export class Collection extends Component {
   render() {
     const { collection } = this.props
     const { title, items } = collection
+    console.log(collection);
     return (
       <div className="collection-page">
         <h2 className="title">{title}</h2>
@@ -24,8 +25,4 @@ const mapStateToProps = (state, ownProps) => ({
   collection: selectCollection(ownProps.match.params.collectionID)(state)
 })
 
-const mapDispatchToProps = {
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Collection)
+export default connect(mapStateToProps)(Collection)
