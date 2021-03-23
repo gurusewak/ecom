@@ -8,7 +8,6 @@ export class Collection extends Component {
   render() {
     const { collection } = this.props
     const { title, items } = collection
-    console.log(collection);
     return (
       <div className="collection-page">
         <h2 className="title">{title}</h2>

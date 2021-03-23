@@ -1,13 +1,16 @@
 import React from 'react'
-import './custom-button.scss';
+import { StyledButton, invertedTheme, googleSignInTheme } from './style';
+import { withTheme } from 'styled-components';
 
-export default function CustomButton({ children, isGoogleSignIn, inverted, ...otherProps }) {
+export function CustomButton({ children, isGoogleSignIn, inverted, theme, ...otherProps }) {
+
   return (
-    <button className={`
-      ${inverted ? 'inverted' : ' '} 
-      ${isGoogleSignIn ? 'google-sign-in' : ' '}  
-      custom-button`} {...otherProps}>
+    <StyledButton theme={isGoogleSignIn ? googleSignInTheme : inverted ? invertedTheme : ''} {...otherProps}>
       {children}
-    </button>
+    </StyledButton>
   )
 }
+CustomButton.defaultProps = {
+  theme: {}
+};
+export default withTheme(CustomButton);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CustomButton from './../custom-button/CustomButton'
-import './cart-dropdown.scss';
+import { StyledEmptyMessage, StyledCartItems, StyledCartDropdown } from './style';
 import CartItem from './../cart-item/CartItem';
 import { selectCartItems } from './../../redux/cart/cart-selector'
 import { toggleCartHidden } from './../../redux/cart/cart-actions'
@@ -11,18 +11,18 @@ export class CartDropdown extends Component {
   render() {
     const { cartItems, history, toggleCartHidden } = this.props;
     return (
-      <div className="cart-dropdown">
-        <div className="cart-items">
+      <StyledCartDropdown>
+        <StyledCartItems>
           {
             cartItems.length
               ?
               (cartItems.map(cartItem => <CartItem key={cartItem.id} item={cartItem}></CartItem>))
               :
-              (<span className="empty-message ">Your cart is empty</span>)
+              (<StyledEmptyMessage>Your cart is empty</StyledEmptyMessage>)
           }
           <CustomButton onClick={() => { history.push('/checkout'); toggleCartHidden() }}> Go To Checkout</CustomButton>
-        </div>
-      </div>
+        </StyledCartItems>
+      </StyledCartDropdown>
     )
   }
 }

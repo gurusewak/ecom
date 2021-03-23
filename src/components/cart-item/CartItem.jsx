@@ -1,14 +1,14 @@
 import React from 'react';
-import './cart-item.scss'
+import { StyledSpan, StyledItemDetails, StyledImage, StyledCartItem } from './style'
 
 export default function CartItem({ item: { name, price, imageUrl, quantity } }) {
   return (
-    <div className="cart-item">
-      <img src={imageUrl} alt="item"></img>
-      <div className="item-details">
-        <span className="name">{name}</span>
-        <span className="price">${price} x {quantity}</span>
-      </div>
-    </div>
+    <StyledCartItem>
+      <StyledImage src={imageUrl} alt="item"></StyledImage>
+      <StyledItemDetails>
+        <StyledSpan>{name}</StyledSpan>
+        <StyledSpan>${price} x {quantity}</StyledSpan>
+      </StyledItemDetails>
+    </StyledCartItem>
   )
 }
