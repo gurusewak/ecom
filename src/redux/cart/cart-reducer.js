@@ -29,6 +29,12 @@ export default function cartReducer (state = initialState, { type,payload }) {
       ...state, 
       cartItems:removeItemsInCart(state.cartItems,payload) }
 
+  case cartActionTypes.CLEAR_CART:
+    return { 
+      ...state, 
+      cartItems:[]
+    }
+      
   default:
     return state
   }
