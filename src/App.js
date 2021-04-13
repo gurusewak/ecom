@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import { Route, Switch ,Redirect} from "react-router-dom";
-import {connect} from 'react-redux';
 
 import './App.css';
 import Homepage from "./pages/homepage/Homepage";
@@ -10,20 +9,15 @@ import Checkout from "./pages/checkout/Checkout";
 import Header from "./components/header/Header";
 import { selectCurrentUser } from './redux/user/user-selector';
 import { checkUserSession } from './redux/user/user-action';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
- class App extends Component {
-  unSubscribeFromAuth = null;
+ const App =({checkUserSession,currentUser})=> {
   
-  componentDidMount(){
-    const {checkUserSession} = this.props
+  useEffect(()=>{
     checkUserSession();
-  }
+  },[checkUserSession])
 
-  componentWillUnmount() {
-    this.unSubscribeFromAuth();
-  }
-
-  render() {
   return (
     <div className="App">
       <Header></Header>
@@ -32,7 +26,7 @@ import { checkUserSession } from './redux/user/user-action';
         <Route path="/shop" component={Shop}></Route>
         <Route exact path="/checkout" component={Checkout}></Route>
         <Route exact path="/signin" render={ () => 
-          this.props.currentUser 
+          currentUser 
           ? 
           (<Redirect to='/'/>)
           :
@@ -43,15 +37,14 @@ import { checkUserSession } from './redux/user/user-action';
       </Switch>
     </div>
   );
-  }
 }
 
-const mapStateToProps = (state) => ({
-  currentUser: selectCurrentUser(state)
+const mapStateToProps=createStructuredSelector({
+  currentUser:selectCurrentUser
 })
 
-const mapDispatchToProps = dispatch=>({
+const mapDispatchToProps=(dispatch)=>({
   checkUserSession:()=>dispatch(checkUserSession())
 })
 
-export default connect(mapStateToProps,mapDispatchToProps)(App)
+export default connect(mapStateToProps,mapDispatchToProps)(App);
