@@ -1,9 +1,23 @@
 import React, { Component } from 'react'
 import StripeCheckout from 'react-stripe-checkout'
+import axios from 'axios'
 
 export default class StripeButton extends Component {
   onToken = (token) => {
-    alert(`Payment Successful. We are in business`);
+    const { price } = this.props;
+    const priceForStripe = price * 100;
+    axios({
+      url: 'payment',
+      method: 'post',
+      data: {
+        amount: priceForStripe,
+        token
+      }
+    }).then(response => {
+      alert('Payment Successful');
+    }).catch(error => {
+      console.log(JSON.parse(error));
+    })
   }
 
 
